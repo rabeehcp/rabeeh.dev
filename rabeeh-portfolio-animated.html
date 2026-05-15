@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rabeeh | DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;--bg3:#0d0d1a;
+  --purple:#a78bfa;--purple2:#7c3aed;
+  --text:#e2e8f0;--muted:#475569;
+  --border:rgba(167,139,250,0.15);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;overflow-x:hidden;}
+
+/* ── AMBIENT ORBS (continuous float) ── */
+.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
+.o1{width:600px;height:600px;background:rgba(124,58,237,0.1);top:-150px;right:-150px;animation:orbFloat1 12s ease-in-out infinite;}
+.o2{width:500px;height:500px;background:rgba(167,139,250,0.07);bottom:10%;left:-200px;animation:orbFloat2 15s ease-in-out infinite;}
+.o3{width:300px;height:300px;background:rgba(167,139,250,0.05);top:50%;left:50%;transform:translate(-50%,-50%);animation:orbFloat3 9s ease-in-out infinite;}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-30px,40px) scale(1.05)}66%{transform:translate(20px,-20px) scale(0.97)}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-60px) scale(1.08)}}
+@keyframes orbFloat3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.3)}}
+
+/* ── GRID OVERLAY ── */
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(167,139,250,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;
+  background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  animation:navSlide 0.7s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes navSlide{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
+.logo{font-family:'Space Mono',monospace;font-size:0.9rem;color:var(--purple);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s,transform 0.2s;display:inline-block;}
+.nav-links a:hover{color:var(--purple);transform:translateY(-2px);}
+
+section{position:relative;z-index:1;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;padding:7rem 2.5rem 4rem;max-width:980px;margin:0 auto;}
+.badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:rgba(124,58,237,0.12);border:1px solid rgba(167,139,250,0.3);
+  color:var(--purple);padding:0.4rem 1rem;border-radius:100px;
+  font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.05em;margin-bottom:2rem;
+  opacity:0;animation:fadeUp 0.6s 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.bdot{width:7px;height:7px;border-radius:50%;background:var(--purple);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+h1{font-size:clamp(2.8rem,6vw,5.2rem);font-weight:800;line-height:1.05;letter-spacing:-0.025em;margin-bottom:1.5rem;}
+.h1-line1{opacity:0;animation:fadeUp 0.7s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;}
+.h1-line2{opacity:0;animation:fadeUp 0.7s 0.55s cubic-bezier(0.16,1,0.3,1) forwards;}
+.h1-line3{opacity:0;animation:fadeUp 0.7s 0.7s cubic-bezier(0.16,1,0.3,1) forwards;}
+.grad{background:linear-gradient(135deg,#c4b5fd,#7c3aed,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200% 200%;animation:gradShift 4s ease infinite;}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+.hdesc{font-size:1.05rem;line-height:1.75;color:#94a3b8;max-width:580px;margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp 0.7s 0.85s cubic-bezier(0.16,1,0.3,1) forwards;}
+.ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;
+  opacity:0;animation:fadeUp 0.7s 1s cubic-bezier(0.16,1,0.3,1) forwards;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+.bp{background:var(--purple2);color:#fff;padding:0.8rem 1.8rem;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.875rem;transition:all 0.2s;display:inline-block;position:relative;overflow:hidden;}
+.bp::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);opacity:0;transition:opacity 0.2s;}
+.bp:hover{background:#6d28d9;transform:translateY(-3px);box-shadow:0 10px 30px rgba(124,58,237,0.4);}
+.bp:hover::after{opacity:1;}
+.bs{background:transparent;color:var(--purple);padding:0.8rem 1.8rem;border-radius:8px;text-decoration:none;font-weight:700;font-size:0.875rem;border:1px solid rgba(167,139,250,0.3);transition:all 0.2s;display:inline-block;}
+.bs:hover{background:rgba(167,139,250,0.07);transform:translateY(-3px);border-color:var(--purple);}
+
+/* Terminal */
+.term{background:#09090f;border:1px solid var(--border);border-radius:12px;overflow:hidden;max-width:580px;
+  opacity:0;animation:fadeUp 0.8s 1.1s cubic-bezier(0.16,1,0.3,1) forwards;}
+.tbar{background:#0e0e1c;padding:0.75rem 1rem;display:flex;align-items:center;gap:0.45rem;border-bottom:1px solid var(--border);}
+.dot{width:11px;height:11px;border-radius:50%;}
+.dr{background:#ff5f56}.dy{background:#ffbd2e}.dg{background:#27c93f}
+.tlabel{font-family:'Space Mono',monospace;font-size:0.68rem;color:#2d3151;margin-left:0.5rem;}
+.tbody{padding:1.2rem 1.5rem;font-family:'Space Mono',monospace;font-size:0.77rem;line-height:2.1;}
+.trow{display:flex;gap:0.6rem;}
+.tprompt{color:#7c3aed;font-weight:700;}
+.tcmd{color:#e2e8f0;}
+.tout{color:#3d4a63;padding-left:1rem;display:block;}
+.tgreen{color:#4ade80;}.tyellow{color:#fbbf24;}
+
+/* typing animation on terminal lines */
+.type-line{overflow:hidden;white-space:nowrap;width:0;animation:typeIn 0.5s steps(30,end) forwards;}
+.tl1{animation-delay:1.5s}
+.tl2{animation-delay:1.9s}
+.tl3{animation-delay:2.3s}
+.tl4{animation-delay:2.5s}
+.tl5{animation-delay:2.7s}
+.tl6{animation-delay:3s}
+.tl7{animation-delay:3.2s}
+.tl8{animation-delay:3.5s}
+.tl9{animation-delay:3.7s}
+@keyframes typeIn{from{width:0}to{width:100%}}
+
+/* ── SHARED SECTION STYLES ── */
+.sec{padding:5rem 2.5rem;max-width:980px;margin:0 auto;}
+.slabel{font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--purple);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.6rem;}
+.sh{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:0.7rem;}
+.ssub{color:#3d4a63;font-size:0.93rem;margin-bottom:2.5rem;line-height:1.7;max-width:560px;}
+.div{height:1px;background:var(--border);position:relative;z-index:1;}
+
+/* ── SCROLL REVEAL BASE ── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
+.reveal.vis{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
+.reveal-left.vis{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
+.reveal-right.vis{opacity:1;transform:translateX(0);}
+/* stagger delays */
+.d1{transition-delay:0.05s}.d2{transition-delay:0.1s}.d3{transition-delay:0.17s}.d4{transition-delay:0.24s}
+.d5{transition-delay:0.31s}.d6{transition-delay:0.38s}.d7{transition-delay:0.45s}.d8{transition-delay:0.52s}
+
+/* ── SECTION LABEL SLIDE ── */
+.sec-header .slabel{overflow:hidden;}
+.sec-header .slabel span{display:block;transform:translateY(100%);opacity:0;transition:transform 0.5s cubic-bezier(0.16,1,0.3,1),opacity 0.5s;transition-delay:0.05s;}
+.sec-header.vis .slabel span{transform:translateY(0);opacity:1;}
+.sec-header .sh{overflow:hidden;}
+.sec-header .sh span{display:block;transform:translateY(100%);opacity:0;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1),opacity 0.6s;transition-delay:0.15s;}
+.sec-header.vis .sh span{transform:translateY(0);opacity:1;}
+.sec-header .ssub{opacity:0;transform:translateY(12px);transition:opacity 0.6s,transform 0.6s;transition-delay:0.28s;}
+.sec-header.vis .ssub{opacity:1;transform:translateY(0);}
+
+/* ── SKILLS ── */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem;}
+.scard{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:all 0.3s;position:relative;overflow:hidden;}
+.scard::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(124,58,237,0.12),transparent 70%);opacity:0;transition:opacity 0.3s;}
+.scard:hover{border-color:rgba(167,139,250,0.4);transform:translateY(-5px) scale(1.02);box-shadow:0 15px 35px rgba(124,58,237,0.15);}
+.scard:hover::before{opacity:1;}
+.sicon{font-size:1.5rem;margin-bottom:0.65rem;display:inline-block;transition:transform 0.3s;}
+.scard:hover .sicon{transform:scale(1.2) rotate(-5deg);}
+.sname{font-size:0.88rem;font-weight:700;margin-bottom:0.2rem;}
+.slvl{font-family:'Space Mono',monospace;font-size:0.63rem;color:var(--purple);letter-spacing:0.06em;margin-bottom:0.6rem;}
+.sbar{height:2px;background:rgba(167,139,250,0.08);border-radius:2px;}
+.sfill{height:100%;border-radius:2px;background:linear-gradient(90deg,#7c3aed,#a78bfa);width:0;transition:width 1.2s cubic-bezier(0.16,1,0.3,1);}
+
+/* ── PROJECTS ── */
+.pgrid{display:grid;gap:1rem;}
+.pcard{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1.7rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1.5rem;transition:all 0.3s;text-decoration:none;color:inherit;cursor:pointer;position:relative;overflow:hidden;}
+.pcard::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,#7c3aed,#a78bfa);transform:scaleY(0);transform-origin:top;transition:transform 0.3s cubic-bezier(0.16,1,0.3,1);}
+.pcard:hover{border-color:rgba(167,139,250,0.4);transform:translateX(8px);background:rgba(124,58,237,0.04);box-shadow:0 8px 30px rgba(124,58,237,0.1);}
+.pcard:hover::after{transform:scaleY(1);}
+.ptitle{font-size:0.98rem;font-weight:700;margin-bottom:0.45rem;color:var(--text);}
+.pdesc{font-size:0.84rem;color:#3d4a63;line-height:1.65;margin-bottom:0.85rem;}
+.tags{display:flex;flex-wrap:wrap;gap:0.35rem;}
+.tag{background:rgba(124,58,237,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.2);padding:0.17rem 0.5rem;border-radius:5px;font-size:0.67rem;font-family:'Space Mono',monospace;transition:all 0.2s;}
+.pcard:hover .tag{background:rgba(124,58,237,0.2);border-color:rgba(167,139,250,0.4);}
+.parrow{color:#1e2035;font-size:1.2rem;transition:all 0.3s;flex-shrink:0;margin-top:0.2rem;}
+.pcard:hover .parrow{color:var(--purple);transform:translateX(5px);}
+
+/* ── JOURNEY ── */
+.journey{position:relative;padding-left:2rem;}
+.journey::before{content:'';position:absolute;left:0;top:6px;bottom:0;width:1px;background:linear-gradient(to bottom,#7c3aed,rgba(124,58,237,0.05));}
+.jitem{position:relative;margin-bottom:2.5rem;opacity:0;transform:translateX(-20px);transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1),transform 0.6s cubic-bezier(0.16,1,0.3,1);}
+.jitem.vis{opacity:1;transform:translateX(0);}
+.jdot{position:absolute;left:-2.4rem;top:5px;width:9px;height:9px;border-radius:50%;background:var(--purple2);box-shadow:0 0 10px rgba(124,58,237,0.5);transition:box-shadow 0.3s,transform 0.3s;}
+.jitem.vis .jdot{animation:dotPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;}
+@keyframes dotPop{from{transform:scale(0)}to{transform:scale(1)}}
+.jitem:hover .jdot{box-shadow:0 0 20px rgba(124,58,237,0.9),0 0 40px rgba(124,58,237,0.4);transform:scale(1.4);}
+.jdate{font-family:'Space Mono',monospace;font-size:0.67rem;color:var(--purple);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;}
+.jtitle{font-size:0.97rem;font-weight:700;margin-bottom:0.3rem;}
+.jbody{font-size:0.855rem;color:#3d4a63;line-height:1.65;max-width:560px;}
+
+/* ── CONTACT ── */
+.cbox{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:3.5rem 2rem;text-align:center;position:relative;overflow:hidden;}
+.cbox::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent 0deg,rgba(124,58,237,0.05) 60deg,transparent 120deg);animation:spinGlow 8s linear infinite;}
+.ch{font-size:clamp(1.6rem,3vw,2.3rem);font-weight:800;margin-bottom:0.9rem;position:relative;}
+.csub{color:#3d4a63;margin-bottom:2.5rem;line-height:1.7;font-size:0.93rem;position:relative;}
+.clinks{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;position:relative;}
+.clink{display:flex;align-items:center;gap:0.5rem;color:var(--text);text-decoration:none;background:rgba(167,139,250,0.06);border:1px solid var(--border);padding:0.68rem 1.25rem;border-radius:10px;font-size:0.84rem;font-weight:600;transition:all 0.25s;position:relative;overflow:hidden;}
+.clink::before{content:'';position:absolute;inset:0;background:rgba(124,58,237,0.08);transform:translateY(100%);transition:transform 0.25s;}
+.clink:hover{border-color:var(--purple);color:var(--purple);transform:translateY(-3px);box-shadow:0 8px 20px rgba(124,58,237,0.2);}
+.clink:hover::before{transform:translateY(0);}
+@keyframes spinGlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+/* ── FLOATING PARTICLES ── */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.particle{position:absolute;width:2px;height:2px;background:var(--purple);border-radius:50%;opacity:0;animation:particleDrift var(--dur) var(--delay) linear infinite;}
+@keyframes particleDrift{
+  0%{opacity:0;transform:translateY(100vh) translateX(0)}
+  10%{opacity:0.6}
+  90%{opacity:0.3}
+  100%{opacity:0;transform:translateY(-10vh) translateX(var(--drift))}
+}
+
+footer{text-align:center;padding:2rem;font-family:'Space Mono',monospace;font-size:0.7rem;color:#1e2035;border-top:1px solid var(--border);position:relative;z-index:1;}
+
+/* ── CURSOR GLOW ── */
+#cursor-glow{position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,0.08) 0%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:0;transition:transform 0.08s linear;top:0;left:0;}
+</style>
+</head>
+<body>
+
+<div id="cursor-glow"></div>
+<div class="particles" id="particles"></div>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+<div class="orb o3"></div>
+
+<nav>
+  <div class="logo">rabeeh.dev</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div style="width:100%">
+    <div class="badge"><span class="bdot"></span>Open to Junior DevOps / Cloud Engineer roles</div>
+    <h1>
+      <span class="h1-line1">Hey, I'm</span>
+      <span class="h1-line2"><span class="grad">Rabeeh.</span></span>
+      <span class="h1-line3">I build &amp; break<br>things in the cloud.</span>
+    </h1>
+    <p class="hdesc">Self-taught DevOps learner from Areakode, Kerala. I learn by doing — containerizing apps, wiring CI/CD pipelines, and obsessing over how production systems actually work.</p>
+    <div class="ctas">
+      <a href="#projects" class="bp">See My Projects</a>
+      <a href="mailto:rabeehsp3663@gmail.com" class="bs">Get In Touch</a>
+    </div>
+    <div class="term">
+      <div class="tbar">
+        <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+        <span class="tlabel">rabeeh@devops ~ zsh</span>
+      </div>
+      <div class="tbody">
+        <div class="trow type-line tl1"><span class="tprompt">➜</span>&nbsp;<span class="tcmd">whoami</span></div>
+        <span class="tout tgreen type-line tl2">rabeeh — devops learner, builder, problem solver</span>
+        <div class="trow type-line tl3" style="margin-top:4px"><span class="tprompt">➜</span>&nbsp;<span class="tcmd">cat skills.txt</span></div>
+        <span class="tout type-line tl4">🐳 Docker · Docker Compose · GitHub Actions</span>
+        <span class="tout type-line tl5">☸️ Kubernetes · Prometheus · Grafana</span>
+        <span class="tout type-line tl6">🐧 Linux · Git · Render · Docker Hub</span>
+        <div class="trow type-line tl7" style="margin-top:4px"><span class="tprompt">➜</span>&nbsp;<span class="tcmd">echo $STATUS</span></div>
+        <span class="tout tyellow type-line tl8">learning · building · improving every day ✨</span>
+        <div class="trow tl9" style="margin-top:4px;opacity:0;animation:typeIn 0.1s 3.7s forwards"><span class="tprompt">➜</span>&nbsp;<span class="tcmd" style="border-right:2px solid #7c3aed;padding-right:2px;animation:blink 1s infinite"> </span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── SKILLS ── -->
+<section id="skills" class="sec">
+  <div class="sec-header reveal">
+    <p class="slabel"><span>// tools &amp; technologies</span></p>
+    <h2 class="sh"><span>My Skillset</span></h2>
+    <p class="ssub">Technologies I've gotten my hands dirty with — through real projects, YouTube deep dives, and a lot of trial and error.</p>
+  </div>
+  <div class="sgrid">
+    <div class="scard reveal d1"><div class="sicon">🐳</div><div class="sname">Docker &amp; Compose</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="65"></div></div></div>
+    <div class="scard reveal d2"><div class="sicon">⚙️</div><div class="sname">GitHub Actions</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="60"></div></div></div>
+    <div class="scard reveal d3"><div class="sicon">☸️</div><div class="sname">Kubernetes</div><div class="slvl">Learning</div><div class="sbar"><div class="sfill" data-w="35"></div></div></div>
+    <div class="scard reveal d4"><div class="sicon">📊</div><div class="sname">Prometheus &amp; Grafana</div><div class="slvl">Basic</div><div class="sbar"><div class="sfill" data-w="40"></div></div></div>
+    <div class="scard reveal d5"><div class="sicon">🐧</div><div class="sname">Linux</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="55"></div></div></div>
+    <div class="scard reveal d6"><div class="sicon">🔀</div><div class="sname">Git &amp; GitHub</div><div class="slvl">Intermediate</div><div class="sbar"><div class="sfill" data-w="65"></div></div></div>
+    <div class="scard reveal d7"><div class="sicon">🚀</div><div class="sname">Render &amp; Docker Hub</div><div class="slvl">Basic</div><div class="sbar"><div class="sfill" data-w="45"></div></div></div>
+    <div class="scard reveal d8"><div class="sicon">☁️</div><div class="sname">AWS (Learning)</div><div class="slvl">Beginner</div><div class="sbar"><div class="sfill" data-w="20"></div></div></div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── PROJECTS ── -->
+<section id="projects" class="sec">
+  <div class="sec-header reveal">
+    <p class="slabel"><span>// what i've built</span></p>
+    <h2 class="sh"><span>Projects</span></h2>
+    <p class="ssub">Real hands-on projects. Every one was broken, debugged, fixed, and improved multiple times. That's how I learn.</p>
+  </div>
+  <div class="pgrid">
+    <a href="https://github.com/rabeehcp" target="_blank" class="pcard reveal d1">
+      <div>
+        <div class="ptitle">🐳 Dockerized Node.js App with CI/CD Pipeline</div>
+        <p class="pdesc">Containerized a Node.js app with Docker, pushed image to Docker Hub, and wired a GitHub Actions pipeline that auto-builds and deploys on every git push.</p>
+        <div class="tags"><span class="tag">Docker</span><span class="tag">GitHub Actions</span><span class="tag">Docker Hub</span><span class="tag">Node.js</span><span class="tag">CI/CD</span></div>
+      </div>
+      <div class="parrow">→</div>
+    </a>
+    <a href="https://github.com/rabeehcp" target="_blank" class="pcard reveal d2">
+      <div>
+        <div class="ptitle">☸️ Kubernetes Deployment with Rolling Updates</div>
+        <p class="pdesc">Deployed a containerized app to a local Kubernetes cluster. Practiced Deployments, Services, scaling replicas, rolling updates, and watched Kubernetes self-heal when pods crashed.</p>
+        <div class="tags"><span class="tag">Kubernetes</span><span class="tag">kubectl</span><span class="tag">Minikube</span><span class="tag">Deployments</span><span class="tag">Services</span></div>
+      </div>
+      <div class="parrow">→</div>
+    </a>
+    <a href="https://github.com/rabeehcp" target="_blank" class="pcard reveal d3">
+      <div>
+        <div class="ptitle">📊 Monitoring Stack — Prometheus + Grafana</div>
+        <p class="pdesc">Set up a full observability stack using Docker Compose. Prometheus scrapes metrics, Grafana visualizes them on dashboards. Learned PromQL metric queries and alert rules.</p>
+        <div class="tags"><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Docker Compose</span><span class="tag">PromQL</span><span class="tag">Monitoring</span></div>
+      </div>
+      <div class="parrow">→</div>
+    </a>
+    <a href="https://github.com/rabeehcp" target="_blank" class="pcard reveal d4">
+      <div>
+        <div class="ptitle">🚀 End-to-End Deployment Pipeline to Render</div>
+        <p class="pdesc">Built a complete automated pipeline — push code to GitHub, GitHub Actions triggers, Docker image built and deployed live to Render. Zero manual steps after the git push.</p>
+        <div class="tags"><span class="tag">GitHub Actions</span><span class="tag">Render</span><span class="tag">Docker</span><span class="tag">Automation</span><span class="tag">CI/CD</span></div>
+      </div>
+      <div class="parrow">→</div>
+    </a>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── JOURNEY ── -->
+<section id="journey" class="sec">
+  <div class="sec-header reveal">
+    <p class="slabel"><span>// my story</span></p>
+    <h2 class="sh"><span>The Journey</span></h2>
+    <p class="ssub">From zero to building real DevOps projects — entirely self-taught, entirely driven by curiosity.</p>
+  </div>
+  <div class="journey">
+    <div class="jitem"><div class="jdot"></div><div class="jdate">2023 — The Beginning</div><div class="jtitle">Started with Linux &amp; Git</div><p class="jbody">Picked up Linux command line and Git through YouTube tutorials. Started understanding how developers actually work day to day — and got hooked.</p></div>
+    <div class="jitem"><div class="jdot"></div><div class="jdate">2024 — Containers</div><div class="jtitle">Discovered Docker — everything clicked</div><p class="jbody">Learned Docker and Docker Compose. The idea of "build once, run anywhere" genuinely excited me. Started containerizing apps and understanding what deployment really means.</p></div>
+    <div class="jitem"><div class="jdot"></div><div class="jdate">2024 — Automation</div><div class="jtitle">Built my first CI/CD pipeline</div><p class="jbody">Wired up GitHub Actions to automate build → test → deploy. Watched code go live automatically after a git push for the first time. That feeling was everything.</p></div>
+    <div class="jitem"><div class="jdot"></div><div class="jdate">2025 — Going Deeper</div><div class="jtitle">Kubernetes, Monitoring &amp; Cloud</div><p class="jbody">Dived into Kubernetes for orchestration, set up Prometheus + Grafana for observability, and started learning AWS. Going deeper every single day.</p></div>
+    <div class="jitem"><div class="jdot"></div><div class="jdate">Now — Ready</div><div class="jtitle">Looking for my first opportunity</div><p class="jbody">Just completed Plus Two. Fully self-taught, project-driven, and hungry to grow. Looking for a Junior DevOps or Cloud Engineer role where I can learn fast and contribute real value. Insha Allah.</p></div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="sec">
+  <div class="cbox reveal">
+    <p class="slabel" style="margin-bottom:1rem;position:relative;">// let's connect</p>
+    <h2 class="ch">Open to Opportunities</h2>
+    <p class="csub">I'm actively looking for Junior DevOps / Cloud Engineer roles.<br>I learn fast, work hard, and bring genuine curiosity to every problem.</p>
+    <div class="clinks">
+      <a href="mailto:rabeehsp3663@gmail.com" class="clink reveal d1">📧 rabeehsp3663@gmail.com</a>
+      <a href="https://github.com/rabeehcp" target="_blank" class="clink reveal d2">🐙 github.com/rabeehcp</a>
+      <span class="clink reveal d3">📍 Areakode, Kerala, India</span>
+    </div>
+  </div>
+</section>
+
+<footer>built with ❤️ by rabeeh &nbsp;·&nbsp; areakode, kerala &nbsp;·&nbsp; 2025</footer>
+
+<script>
+/* ── CURSOR GLOW ── */
+const glow = document.getElementById('cursor-glow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+});
+
+/* ── FLOATING PARTICLES ── */
+const pc = document.getElementById('particles');
+for(let i = 0; i < 25; i++){
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const left = Math.random() * 100;
+  const dur = (8 + Math.random() * 14).toFixed(1);
+  const delay = (Math.random() * 10).toFixed(1);
+  const drift = ((Math.random() - 0.5) * 200).toFixed(0);
+  const size = (1 + Math.random() * 2.5).toFixed(1);
+  p.style.cssText = `left:${left}%;--dur:${dur}s;--delay:${delay}s;--drift:${drift}px;width:${size}px;height:${size}px;`;
+  pc.appendChild(p);
+}
+
+/* ── INTERSECTION OBSERVER ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const el = entry.target;
+      el.classList.add('vis');
+
+      /* animate skill bars when card becomes visible */
+      el.querySelectorAll('.sfill').forEach(bar => {
+        const w = bar.dataset.w;
+        if(w) bar.style.width = w + '%';
+      });
+
+      /* stagger journey items */
+      if(el.classList.contains('journey')){
+        el.querySelectorAll('.jitem').forEach((item, i) => {
+          setTimeout(() => {
+            item.classList.add('vis');
+            item.querySelector('.jdot').style.animationDelay = '0s';
+          }, i * 180);
+        });
+      }
+    }
+  });
+}, { threshold: 0.07 });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .sec-header').forEach(el => obs.observe(el));
+document.querySelectorAll('.journey').forEach(el => obs.observe(el));
+
+/* also trigger skill bars when section cards individually enter */
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.querySelectorAll('.sfill[data-w]').forEach(bar => {
+        bar.style.width = bar.dataset.w + '%';
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.scard').forEach(c => barObs.observe(c));
+
+/* ── ACTIVE NAV HIGHLIGHT ── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + entry.target.id ? 'var(--purple)' : '';
+      });
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => navObs.observe(s));
+</script>
+</body>
+</html>
